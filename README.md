@@ -1,5 +1,5 @@
 # deploy_jenkins
-Allows to deploy / destroy Jenkins, used as orchestrator to manage pipelines : Artifakt Assessment Test
+Allows to deploy / destroy Jenkins, used as orchestrator to manage pipelines ( AWS EKS )
 
 The script is composed by an ansible role "artifakt_jenkins", bash and terraform scripts.
 
@@ -24,7 +24,7 @@ The script is composed by an ansible role "artifakt_jenkins", bash and terraform
 
 ## Getting Started
 
-This script allows to deploy jenkins instance, it will be used later to build AWS infrastructure on AWS and deploy new Wordpress images on EKS.
+This script allows to deploy jenkins instance, it will be used later to build AWS infrastructure on AWS and deploy "notes" images on EKS.
 
 The script uses :
 
@@ -86,9 +86,9 @@ All variables are available on **terraform.tfvars** file, you can keep all defau
 
 ## Installation Steps 
 
-1. git clone  https://github.com/ghassencherni/deploy_jenkins.git
+1. git clone https://github.com/ghassencherni/deploy_jenkins_for_EKS.git
 
-2. cd deploy_jenkins
+2. cd deploy_jenkins_for_EKS
 
 3. Give permission to the scripts 
 
@@ -119,9 +119,11 @@ chmod +x ./binaries/init.sh ./binaries/destroy.sh
 
 6. After finishing installing the script, connect to Jenkins using the "admin" user and the "initial admin password" in order to run the jobs : [terraform_aws_eks](https://github.com/ghassencherni/terraform_aws_eks), [wordpress_k8s](https://github.com/ghassencherni/wordpress_k8s) and [wp_custom_docker](https://github.com/ghassencherni/wp_custom_docker).
 
-7. Run the first pipeline "terraform_aws_eks": it will build all AWS resources ( VPC, RDS, EKS, Public and Private Subnets,.. )
+7. Run the first pipeline "terraform_aws_eks_psg": it will build all AWS resources ( VPC, RDS, EKS, Public and Private Subnets,.. )
 
-8. Run the pipeline wp_custom_docker, it will push the new Docker image (ghassen-devopstt) on Gitlab Registry and trigger wordpress_k8s pipeline that create the wordpress deployment on EKS and un the ALB ( currently only HTTP is vailable )
+8. Run the pipeline notes_docker, it will push the new Docker image (mynotes) on Gitlab Registry.
+
+9. Run notes_k8s pipeline: will create the "Mynotes" deployment on EKS and launch the ALB ( HTTP and HTTPS both available )
 
 
 ## Author Information
