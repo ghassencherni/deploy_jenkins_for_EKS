@@ -1,0 +1,4 @@
+- hosts: nodes
+  become: yes
+  roles:
+    - artifakt_jenkins
